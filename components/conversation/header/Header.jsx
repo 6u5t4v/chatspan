@@ -3,7 +3,6 @@ import { View, Text, Image, Pressable } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import styles from "./header.styles";
 
-
 const Header = ({ conversation }) => {
   return (
     <View style={styles.container}>

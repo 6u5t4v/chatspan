@@ -2,9 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
-  Text,
   View,
-  Image,
   Pressable,
   TextInput,
   SafeAreaView,
@@ -12,7 +10,7 @@ import {
 } from "react-native";
 import { MaterialIcons, FontAwesome, Ionicons } from '@expo/vector-icons';
 
-import { Header, Message } from "./src/components";
+import { Header, Message } from "../components";
 
 const users = [
   {
@@ -31,7 +29,7 @@ const users = [
   },
 ];
 
-const messages = [
+const conversation = [
   {
     id: "1",
     content: "Hello world! This is a long message that needs to be truncated",
@@ -76,32 +74,29 @@ const messages = [
   },
 ];
 
-
-
-// type MessageProps = {
-//   message: {
-//     id: string;
-//     content: string;
-//     createdAt: string;
-//     user: UserProps;
-//   };
-// };
-
-// const Message = ({ message }) => {
-//   const content = message.content;
-
-//   return (
-//     <View style={message.user.me ? styles.messageFromMeContainer : styles.messageFromOtherContainer}>
-//       <Image source={{ uri: message.user.imageUri }} style={styles.image} />
-//       <Text style={[{ flex: 1, color: 'white', marginHorizontal: 5 },
-//       content.length < 50 ? { alignSelf: 'center' } : { alignSelf: 'flex-start' },
-//       message.user.me ? { textAlign: 'right' } : {}]}>{content}</Text>
-//     </View>
-//   );
-// };
-
 export default function App() {
   const [text, onChangeText] = useState("");
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    setMessages((msgs) => msgs);
+  }, []);
+
+  const onSendPress = (user) => {
+    // Send the message to the backend
+    
+    setMessages([
+      ...messages,
+      {
+        id: messages.length + 1,
+        content: text,
+        createdAt: new Date().toISOString(),
+        user: user,
+      },
+    ]);
+
+    onChangeText("");
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -157,7 +152,7 @@ export default function App() {
         {/* Send bottom */}
         <Pressable
           style={styles.buttonContainer}
-          onPress={() => alert("Send message")}
+          onPress={() => onSendPress(users[0])}
         >
           <Ionicons name="send" size={24} color="black" />
         </Pressable>

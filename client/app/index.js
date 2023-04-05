@@ -3,8 +3,11 @@ import {
   StyleSheet,
   SafeAreaView,
 } from "react-native";
+import { Stack, useRouter } from 'expo-router';
+
 
 import { HomeHeader, FriendsList } from "../components";
+import SignIn from "./auth/SignIn";
 
 import { COLORS } from "../constants";
 
@@ -26,10 +29,20 @@ const users = [
 ];
 
 export default function App() {
+  const router = useRouter();
+  
   return (
     <SafeAreaView style={styles.container} >
-      <HomeHeader />
-      <FriendsList />
+      <Stack.Screen
+        options={{
+          headerStyle: { backgroundColor: COLORS.lightWhite },
+          headerShadowVisible: false,
+          headerTitle: ""
+        }}
+      />
+      {/* <HomeHeader />
+      <FriendsList /> */}
+      <SignIn />
     </SafeAreaView>
   );
 }

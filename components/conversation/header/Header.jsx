@@ -4,6 +4,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import styles from "./header.styles";
 
 const Header = ({ conversation }) => {
+  console.log(conversation);
   return (
     <View style={styles.container}>
       <Pressable style={styles.backBtn} onPress={() => alert("Go back")}>

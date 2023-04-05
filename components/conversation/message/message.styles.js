@@ -26,7 +26,20 @@ const styles = StyleSheet.create({
     text: {
         color: COLORS.white,
         fontSize: SIZES.medium,
-    }
+    },
+    // messageFromOtherContainer: {
+    //     flexDirection: "row",
+    //     backgroundColor: "#8c8b8b",
+    //     borderRadius: 10,
+    //     padding: 10,
+    // },
+    // messageFromMeContainer: {
+    //     flexDirection: "row-reverse",
+    //     justifyContent: "space-between",
+    //     backgroundColor: "#4287f5",
+    //     borderRadius: 10,
+    //     padding: 10,
+    // },
 });
 
 export default styles;

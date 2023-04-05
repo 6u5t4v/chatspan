@@ -1,7 +1,6 @@
+import User from "../mongodb/models/user.js";
 import Conversation from "../mongodb/models/conversation.js";
 import mongoose from "mongoose";
-
-import { getUserInfoById } from "./user.controller.js";
 
 const getConversations = async (req, res) => {
 

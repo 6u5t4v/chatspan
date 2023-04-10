@@ -44,9 +44,12 @@ See all rest api endpoints in the `Docs`-directory
 
 
 # Dependencies
-
+## Frontend
+- axios-auth-refresh
+- expo-secure-store
 - expo
 - axios
+## Backend
 - cloudinary
 - dotenv
 - express

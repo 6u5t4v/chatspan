@@ -1,8 +1,9 @@
-import React from "react";
-import { StyleSheet, Pressable, View, Text } from "react-native";
-import { FontAwesome, Entypo } from "@expo/vector-icons";
+import { Pressable, View, Text } from "react-native";
+import { Entypo } from "@expo/vector-icons";
 
-import { COLORS, SIZES } from "../../../constants";
+import { COLORS } from "../../../constants";
+
+import styles from "./header.styles"; 
 
 const Header = () => {
   return (
@@ -21,24 +22,3 @@ const Header = () => {
 };
 
 export default Header;
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 10,
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: COLORS.white,
-  },
-  button: {
-    padding: 5,
-    borderRadius: 25,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-});

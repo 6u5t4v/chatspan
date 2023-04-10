@@ -1,57 +1,53 @@
-import React, { } from "react";
-import {
-  StyleSheet,
-  SafeAreaView,
-} from "react-native";
-import { Stack, useRouter } from 'expo-router';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import * as SecureStore from 'expo-secure-store';
 
+import { FriendsList, SignIn, Spinner } from "../components";
 
-import { HomeHeader, FriendsList } from "../components";
-import SignIn from "./auth/SignIn";
+const App = () => {
+  const authContext = useContext(AuthContext);
+  const [status, setStatus] = useState('loading');
 
-import { COLORS } from "../constants";
+  const loadJWT = useCallback(async () => {
+    try {
+      console.log('Loading JWT');
+      const value = SecureStore.getItemAsync('token')
+        .then((value) => {
+          return value;
+        });
+      console.log("bruh " + JSON.stringify(value));
+      const jwt = JSON.parse(value?.password);
 
-const users = [
-  {
-    id: "u1",
-    me: true,
-    name: "Vadim",
-    imageUri:
-      "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/1.jpg",
-  },
-  {
-    id: "u2",
-    me: false,
-    name: "Elon Musk",
-    imageUri:
-      "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/2.jpg",
-  },
-];
+      authContext.setAuthState({
+        accessToken: jwt.accessToken || null,
+        refreshToken: jwt.refreshToken || null,
+        authenticated: jwt.accessToken !== null,
+      });
+      setStatus('success');
+    } catch (error) {
+      setStatus('error');
+      console.log(`Keychain Error: ${error.message}`);
+      authContext.setAuthState({
+        accessToken: null,
+        refreshToken: null,
+        authenticated: false,
+      });
+    }
+  }, []);
 
-export default function App() {
-  const router = useRouter();
-  
-  return (
-    <SafeAreaView style={styles.container} >
-      <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: COLORS.lightWhite },
-          headerShadowVisible: false,
-          headerTitle: ""
-        }}
-      />
-      {/* <HomeHeader />
-      <FriendsList /> */}
-      <SignIn />
-    </SafeAreaView>
-  );
-}
+  useEffect(() => {
+    loadJWT();
+  }, [loadJWT]);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignSelf: "center",
-    backgroundColor: COLORS.white,
-    width: "100%",
-  },
-});
+  if (status === 'loading') {
+    return <Spinner />;
+  }
+
+  if (authContext?.authState?.authenticated === false) {
+    return <SignIn />;
+  } else {
+    return <FriendsList />;
+  }
+};
+
+export default App;

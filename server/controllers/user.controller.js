@@ -1,7 +1,6 @@
 import User from "../mongodb/models/user.js";
 import * as dotenv from "dotenv";
 import { v2 as cloudinary } from "cloudinary";
-import mongoose from "mongoose";
 
 dotenv.config();
 
@@ -20,23 +19,23 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-const createUser = async (req, res) => {
-    try {
-        const { name, email, avatar } = req.body;
+// const createUser = async (req, res) => {
+//     try {
+//         const { name, email, avatar } = req.body;
 
-        const userExists = await User.findOne({ email });
+//         const userExists = await User.findOne({ email });
 
-        if (userExists) {
-            return res.status(200).json(userExists);
-        }
+//         if (userExists) {
+//             return res.status(200).json(userExists);
+//         }
 
-        const user = await User.create({ name, email, avatar });
+//         const user = await User.create({ name, email, avatar });
 
-        res.status(200).json(user);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
+//         res.status(200).json(user);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// };
 
 const getUserInfoById = async (req, res) => {
     try {
@@ -54,4 +53,8 @@ const getUserInfoById = async (req, res) => {
     }
 };
 
-export { getAllUsers, createUser, getUserInfoById }
+export {
+    getAllUsers,
+    // createUser, 
+    getUserInfoById
+}

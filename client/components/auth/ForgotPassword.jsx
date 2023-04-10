@@ -3,8 +3,7 @@ import { View, SafeAreaView, Text, Pressable, TextInput } from "react-native";
 import { Stack, useRouter } from "expo-router";
 
 import styles from "../../styles/auth.styles";
-import { COLORS, icons } from "../../constants";
-import { ScreenHeaderBtn } from "../../components";
+import { COLORS } from "../../constants";
 
 const ForgotPassword = () => {
   const router = useRouter();
@@ -14,13 +13,6 @@ const ForgotPassword = () => {
         options={{
           headerStyle: { backgroundColor: COLORS.lightWhite },
           headerShadowVisible: false,
-          headerLeft: () => (
-            <ScreenHeaderBtn
-              iconUrl={icons.leftArrow}
-              dimension="60%"
-              handlePress={() => router.back()}
-            />
-          ),
           headerTitle: "",
         }}
       />

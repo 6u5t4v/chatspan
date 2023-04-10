@@ -7,10 +7,15 @@ import Favorites from "./home/favorites/Favorites";
 import { default as HomeHeader } from "./home/header/Header";
 import Conversations from "./home/conversations/Conversations";
 
+import SignUp from "./auth/SignUp";
+import SignIn from "./auth/SignIn";
+import ForgotPassword from "./auth/ForgotPassword";
+
 import Searchbar from "./common/searchbar/Searchbar";
 import FavoriteCard from "./common/cards/favoritecard/FavoriteCard";
 import ConversationCard from "./common/cards/conversationcard/ConversationCard";
-import ScreenHeaderBtn from "./common/header/ScreenHeaderBtn"; 
+import ScreenHeaderBtn from "./common/header/ScreenHeaderBtn";
+import Spinner from "./common/spinner/Spinner";
 
 export {
     Message,
@@ -23,5 +28,9 @@ export {
     Conversations,
     FavoriteCard,
     ConversationCard,
-    ScreenHeaderBtn
+    ScreenHeaderBtn,
+    SignUp,
+    SignIn,
+    ForgotPassword,
+    Spinner,
 };

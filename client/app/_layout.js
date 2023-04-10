@@ -1,5 +1,9 @@
+import React, { useCallback } from 'react';
+
+import { AuthProvider } from '../context/AuthContext';
+import { AxiosProvider } from '../context/AxiosContext';
+
 import { Stack } from "expo-router";
-import { useCallback } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -21,7 +25,14 @@ const Layout = ({ children }) => {
         return null;
     }
 
-    return <Stack onLayout={onLayoutRootView} />
+    return (
+        <AuthProvider>
+            <AxiosProvider>
+                {/* <App /> */}
+                <Stack onLayout={onLayoutRootView} />
+            </AxiosProvider>
+        </AuthProvider>
+    )
 };
 
 export default Layout;

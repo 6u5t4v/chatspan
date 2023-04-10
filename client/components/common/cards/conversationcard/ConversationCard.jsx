@@ -1,4 +1,3 @@
-import React from "react";
 import { Image, View, Text } from "react-native";
 
 import styles from "./conversationcard.styles";

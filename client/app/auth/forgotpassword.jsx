@@ -1,12 +1,21 @@
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TextInput,
+  Pressable,
+} from "react-native";
 import React from "react";
-import { View, SafeAreaView, Text, Pressable, TextInput } from "react-native";
 import { Stack, useRouter } from "expo-router";
 
-import styles from "../../styles/auth.styles";
 import { COLORS } from "../../constants";
+
+import { ActionButton } from "../../components";
 
 const ForgotPassword = () => {
   const router = useRouter();
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen
@@ -14,6 +23,19 @@ const ForgotPassword = () => {
           headerStyle: { backgroundColor: COLORS.lightWhite },
           headerShadowVisible: false,
           headerTitle: "",
+          headerLeft: () => (
+            <Pressable
+              onPress={() => {
+                router.back();
+              }}
+            >
+              <Text
+                style={{ fontSize: 16, fontWeight: "bold", marginLeft: 20 }}
+              >
+                Back
+              </Text>
+            </Pressable>
+          ),
         }}
       />
 
@@ -45,12 +67,38 @@ const ForgotPassword = () => {
           placeholder="Email"
         />
 
-        <Pressable style={styles.login}>
-          <Text style={styles.loginText}>Send</Text>
-        </Pressable>
+        <ActionButton
+          btnStyle={styles.login}
+          txtStyle={{
+            color: "white",
+            fontSize: 18,
+          }}
+          action={() => {
+            console.log("Send");
+          }}
+          text="Send"
+        />
       </View>
     </SafeAreaView>
   );
 };
 
 export default ForgotPassword;
+
+const styles = StyleSheet.create({
+  login: {
+    backgroundColor: COLORS.primary,
+    paddingVertical: 10,
+    width: "100%",
+    borderRadius: 10,
+    marginTop: 20,
+  },
+  inputField: {
+    backgroundColor: COLORS.white,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: COLORS.secondary,
+    borderWidth: 1,
+    fontSize: 16,
+  },
+});

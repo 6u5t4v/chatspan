@@ -1,62 +1,71 @@
+import { StyleSheet, SafeAreaView } from "react-native";
 import React from "react";
-import { View } from "react-native";
 
-import { Searchbar, Favorites, Conversations } from "../../../components";
+import { Stack } from "expo-router";
 
-import { COLORS } from "../../../constants";
+import { HomeHeader, Searchbar, Favorites, Conversations } from "../../components";
+import { COLORS } from "../../constants";
+import Header from "../../components/home/header/Header";
 
 const friends = [
   {
     id: "u1",
-    me: false,
     name: "Arne",
     imageUri:
       "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/1.jpg",
   },
   {
     id: "u2",
-    me: false,
     name: "Elon Musk",
     imageUri:
       "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/2.jpg",
   },
   {
     id: "u3",
-    me: false,
     name: "Jeff Bezos",
     imageUri:
       "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/3.jpg",
   },
   {
     id: "u4",
-    me: false,
     name: "Zuck",
     imageUri:
       "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/4.jpg",
   },
   {
     id: "u5",
-    me: false,
     name: "Gates",
     imageUri:
       "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/5.jpg",
   },
 ];
 
-const FriendsList = () => {
+const Home = () => {
   return (
-    <View
-      style={{
-        backgroundColor: COLORS.lightWhite,
-        alignItems: "center",
-        height: "100%",
-      }}
-    >
+    <SafeAreaView style={styles.container}>
+      <Stack.Screen
+        options={{
+          headerShown: false,
+          headerTitle: "",
+        }}
+      />
+      <HomeHeader />
       <Searchbar />
       <Favorites users={friends} />
+
       <Conversations friends={friends} />
-    </View>
+
+    </SafeAreaView>
   );
 };
 
-export default FriendsList;
+export default Home;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.lightWhite,
+    alignItems: "center",
+    height: "100%",
+  }
+});

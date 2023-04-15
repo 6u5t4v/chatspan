@@ -1,3 +1,5 @@
+import jwtDecode from 'jwt-decode'
+
 import User from "../mongodb/models/user.js";
 import Token from "../mongodb/models/token.js";
 import {
@@ -8,13 +10,13 @@ import {
 } from "../authentication/auth.js";
 
 const login = async (req, res) => {
+    const { email, password } = req.body;
 
-    const { email, password } = req.body
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email: email }).lean();
     if (!user) {
         return res.status(401).json({
             message: 'User not found!'
-        })
+        });
     }
 
     const isPasswordValid = await checkPassword(password, user.password)
@@ -22,22 +24,22 @@ const login = async (req, res) => {
     if (!isPasswordValid) {
         return res.status(401).json({
             message: 'Invalid password!'
-        })
+        });
     }
 
-    const accessToken = generateToken(user)
-    const decodedAccessToken = jwtDecode(accessToken)
-    const accessTokenExpiresAt = decodedAccessToken.exp
-    const refreshToken = getRefreshToken(user)
+    const accessToken = generateToken(user);
+    const decodedAccessToken = jwtDecode(accessToken);
+    const accessTokenExpiresAt = decodedAccessToken.exp;
+    const refreshToken = getRefreshToken(user);
 
-    const storedRefreshToken = new Token({ refreshToken, user: user._id })
-    await storedRefreshToken.save()
+    const storedRefreshToken = new Token({ user: user._id, refreshToken });
+    await storedRefreshToken.save();
 
     res.json({
         accessToken,
         expiresAt: accessTokenExpiresAt,
         refreshToken
-    })
+    });
 }
 
 const register = async (req, res) => {
@@ -90,6 +92,7 @@ const refreshToken = async (req, res) => {
             })
         }
 
+        console.log(user.user);
         const existingUser = await User.findOne({ _id: user.user })
 
         if (!existingUser) {
@@ -103,7 +106,6 @@ const refreshToken = async (req, res) => {
     } catch (err) {
         return res.status(500).json({ message: 'Could not refresh token' })
     }
-
 }
 
 export {

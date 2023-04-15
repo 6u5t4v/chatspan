@@ -7,30 +7,38 @@ import Favorites from "./home/favorites/Favorites";
 import { default as HomeHeader } from "./home/header/Header";
 import Conversations from "./home/conversations/Conversations";
 
-import SignUp from "./auth/SignUp";
-import SignIn from "./auth/SignIn";
-import ForgotPassword from "./auth/ForgotPassword";
+import SignInForm from "./auth/signin/SignInForm";
+import SignUpForm from "./auth/signup/SignUpForm";
+import SignUpButton from "./auth/signin/SignUpButton";
+import SignInButton from "./auth/signup/SignInButton";
 
 import Searchbar from "./common/searchbar/Searchbar";
 import FavoriteCard from "./common/cards/favoritecard/FavoriteCard";
 import ConversationCard from "./common/cards/conversationcard/ConversationCard";
 import ScreenHeaderBtn from "./common/header/ScreenHeaderBtn";
 import Spinner from "./common/spinner/Spinner";
+import ActionButton from "./common/button/ActionButton";
 
 export {
     Message,
-    MessageHistory,
     Header,
+    MessageHistory,
+
     FriendsList,
     Favorites,
     HomeHeader,
-    Searchbar,
     Conversations,
+
+    SignInForm,
+    SignUpForm,
+    SignUpButton,
+    SignInButton,
+
     FavoriteCard,
     ConversationCard,
+
+    Searchbar,
     ScreenHeaderBtn,
-    SignUp,
-    SignIn,
-    ForgotPassword,
     Spinner,
+    ActionButton,
 };

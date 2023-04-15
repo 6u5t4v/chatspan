@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+dotenv.config({ path: '../.env' });
+
 import jwtDecode from 'jwt-decode'
 import jsonwebtoken from 'jsonwebtoken';
 import bcrypt from 'bcrypt';

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Text, Image, View } from "react-native";
+import { FlatList, View } from "react-native";
 
-import styles from "./favorites.styles";
 import FavoriteCard from "../../common/cards/favoritecard/FavoriteCard";
 
 const Favorites = ({ users }) => {
@@ -11,12 +10,11 @@ const Favorites = ({ users }) => {
     setFavorites((favs) => favs);
   }, []);
 
-  // console.log(users);
   return (
     <View style={{ flexDirection: "row", marginVertical: 10 }}>
       <FlatList
         style={{ marginHorizontal: 10 }}
-        data={users}
+        data={favorites}
         renderItem={(item) => {
           return <FavoriteCard user={item.item} />;
         }}

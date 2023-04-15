@@ -1,8 +1,11 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import * as SecureStore from 'expo-secure-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { FriendsList, SignIn, Spinner } from "../components";
+import SignIn from './auth/signin/signin';
+import Home from './home';
+
+import { Spinner } from "../components";
 
 const App = () => {
   const authContext = useContext(AuthContext);
@@ -10,13 +13,9 @@ const App = () => {
 
   const loadJWT = useCallback(async () => {
     try {
-      console.log('Loading JWT');
-      const value = SecureStore.getItemAsync('token')
-        .then((value) => {
-          return value;
-        });
-      console.log("bruh " + JSON.stringify(value));
-      const jwt = JSON.parse(value?.password);
+      const value = await AsyncStorage.getItem('token');
+
+      const jwt = JSON.parse(value);
 
       authContext.setAuthState({
         accessToken: jwt.accessToken || null,
@@ -24,6 +23,7 @@ const App = () => {
         authenticated: jwt.accessToken !== null,
       });
       setStatus('success');
+      console.log("success")
     } catch (error) {
       setStatus('error');
       console.log(`Keychain Error: ${error.message}`);
@@ -44,9 +44,11 @@ const App = () => {
   }
 
   if (authContext?.authState?.authenticated === false) {
+    console.log('Not authenticated')
     return <SignIn />;
   } else {
-    return <FriendsList />;
+    console.log('Authenticated')
+    return <Home />;
   }
 };
 
